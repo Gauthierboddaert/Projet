@@ -1,4 +1,4 @@
-var Student = require("../models/student");
+var student = require("../models/student");
 
 const { param, body, validationResult } = require("express-validator");
 
@@ -48,7 +48,7 @@ exports.create = [
     const errors = validationResult(req);
 
     // Create student object with escaped and trimmed data
-    var student = new Student({
+    var student = new student({
       _id: req.body.id,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -64,7 +64,7 @@ exports.create = [
         if (err) {
           return res.status(500).json(err);
         }
-        return res.status(201).json("Student created successfully !");
+        return res.status(201).json("student created successfully !");
       });
     }
   },
@@ -72,7 +72,7 @@ exports.create = [
 
 // Read
 exports.getAll = function (req, res, next) {
-  Student.find().exec(function (err, result) {
+  student.find().exec(function (err, result) {
     if (err) {
       return res.status(500).json(err);
     }
@@ -96,7 +96,7 @@ exports.getById = [
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     } else {
-      Student.findById(req.params.id).exec(function (err, result) {
+      student.findById(req.params.id).exec(function (err, result) {
         if (err) {
           return res.status(500).json(err);
         }
@@ -123,11 +123,11 @@ exports.delete = [
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     } else {
-      Student.findByIdAndRemove(req.params.id).exec(function (err, result) {
+      student.findByIdAndRemove(req.params.id).exec(function (err, result) {
         if (err) {
           return res.status(500).json(err);
         }
-        return res.status(200).json("Student deleted successfully !");
+        return res.status(200).json("student deleted successfully !");
       });
     }
   },
@@ -177,7 +177,7 @@ exports.update = [
     const errors = validationResult(req);
 
     // Create student object with escaped and trimmed data
-    var student = new Student({
+    var student = new student({
       _id: req.params.id,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -189,11 +189,11 @@ exports.update = [
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     } else {
-      Student.findByIdAndUpdate(req.params.id, student, function (err, result) {
+      student.findByIdAndUpdate(req.params.id, student, function (err, result) {
         if (err) {
           return res.status(500).json(err);
         }
-        return res.status(201).json("Student updated successfully !");
+        return res.status(201).json("student updated successfully !");
       });
     }
   },
